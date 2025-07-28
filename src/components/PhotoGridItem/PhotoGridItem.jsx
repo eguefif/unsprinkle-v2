@@ -11,7 +11,7 @@ const PhotoGridItem = ({ id, src, alt, tags }) => {
   return (
     <article>
       <Anchor href={`/photos/${id}`}>
-        <Image>
+        <picture>
           <source
             type="image/avif"
             srcSet={`
@@ -30,11 +30,11 @@ const PhotoGridItem = ({ id, src, alt, tags }) => {
                     `
             }
             />
-            <img
+            <Image
             alt={alt}
             src={jpgSrc}
             />
-        </Image>
+        </picture>
       </Anchor>
       <Tags>
         {tags.map((tag) => (
@@ -51,22 +51,27 @@ const Anchor = styled.a`
   outline-offset: 4px;
 `;
 
-const Image = styled.picture`
+const Image = styled.img`
   display: block;
   width: 100%;
-  height: 300px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
   border-radius: 2px;
   margin-bottom: 8px;
 `;
 
 const Tags = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: inline;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipis;
+  max-width: 250px;
 `;
 
 const Tag = styled.li`
+  display: inline;
   padding: 4px 8px;
+  margin-left:not(:first-of-type): 8px;
   background: var(--color-gray-300);
   font-size: 0.875rem;
   font-weight: 475;
